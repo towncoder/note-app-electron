@@ -1,0 +1,110 @@
+.context {
+    display: flex;
+    justify-content: center;
+}
+
+.menu {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    background-color: grey;
+}
+
+.menu-btn {
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+    background-color: grey;
+    margin-left: 10px;
+}
+
+.html {
+    width: 50%;
+    overflow-y: auto;
+    height: 550px;
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    border: 1px solid gray;
+    border-left: none !important;
+}
+
+.md {
+    width: 50%;
+    height: 550px;
+    border: 1px solid gray;
+    padding-left: 10px;
+}
+
+#text {
+    height: 522px;
+    width: calc(100% - 20px);
+    outline: none;
+    border: none;
+    resize: none;
+    padding: 14px 10px !important;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+}
+
+#text ::before {
+    content: "xxx";
+}
+
+#text:focus {
+    outline: none;
+    border: none;
+    resize: none;
+}
+
+blockquote {
+    border-left: .25em solid blueviolet;
+    padding: 0 1em;
+    margin: 0 0 16px 0;
+}
+
+.code {
+    padding: 1.5em;
+    background-color: #F6F8FA;
+    overflow-y: auto;
+    display: block;
+    margin: 0;
+}
+
+img {
+    height: auto;
+    width: 90%;
+    margin-left: 5%;
+}
+
+.code code {
+    font-size: 100%;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+p > code {
+    padding: 0.2em 0.4em;
+    font-size: 85%;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    background-color: rgba(175, 184, 193, .2);
+    border-radius: 6px;
+}
+
+h2 {
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid hsla(210, 18%, 87%, 1)
+}
+
+h1 {
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid hsla(210, 18%, 87%, 1)
+}
+
+a {
+    overflow-wrap: break-word;
+}
+
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content: https://ssl.gstatic.com;
+    media-src * blob: 'self' http://* 'unsafe-inline' 'unsafe-eval';
+    style-src * 'self' 'unsafe-inline';
+    img-src * 'self' data: content:;
+    connect-src * blob:;">
+    <link rel="stylesheet" href="css/index.css">
+    <link href="css/atom-one-light.css" rel="stylesheet">
+
+    <script src="index.js"></script>
+    <script src="markdown.js"></script>
+    <script src="highlight.pack.js"></script>
+    <title>随记</title>
+</head>
+<body>
+
+<div class="menu">
+    <button class="menu-btn" onclick="saveNote()">保存</button>
+    <button class="menu-btn" onclick="saveNote()">新建</button>
+    <button class="menu-btn" onclick="saveNote()">列表</button>
+</div>
+<div class="context">
+    <div class="md">
+        <label for="text"></label>
+        <!-- 标签间存在空行或空格时 placeholder 不显示 -->
+        <textarea id="text" autofocus placeholder="开始用 MarkDown 记录你的灵感"></textarea>
+    </div>
+    <div class="html">
+
+    </div>
+</div>
+
+
+</body>
+</html>
