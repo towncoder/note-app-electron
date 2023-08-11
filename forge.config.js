@@ -20,6 +20,15 @@ module.exports = {
       name: '@electron-forge/maker-rpm',
       config: {},
     },
+    // MacOS系统打包配置
+    {
+      name: '@electron-forge/maker-dmg',
+      config: {}
+    },
+    {
+      name: '@electron-forge/maker-wix',
+      config: {}
+    },
   ],
   plugins: [
     {
