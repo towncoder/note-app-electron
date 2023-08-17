@@ -8,10 +8,10 @@
     img-src * 'self' data: content:;
     connect-src * blob:;">
     <link rel="stylesheet" href="css/index.css">
-    <link href="css/atom-one-light.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="css/atom-one-light.css">
     <script src="index.js"></script>
-    <script src="markdown.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/markdown.js"></script>
     <script src="highlight.pack.js"></script>
     <title>随记</title>
 </head>
@@ -19,8 +19,8 @@
 
 <div class="menu">
     <button class="menu-btn" onclick="saveNote()">保存</button>
-    <button class="menu-btn" onclick="saveNote()">新建</button>
-    <button class="menu-btn" onclick="saveNote()">列表</button>
+    <button class="menu-btn" onclick="addNote()">新建</button>
+    <button class="menu-btn" onclick="clickListNote()">列表</button>
 </div>
 <div class="context">
     <div class="md">
@@ -31,6 +31,9 @@
     <div class="html">
 
     </div>
+</div>
+<div class="note-list" id="note-list">
+
 </div>
 
 
