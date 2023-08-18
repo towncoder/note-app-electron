@@ -13,23 +13,34 @@ const os = require('os');
 
 // /Users/libiao
 let homeDir = os.userInfo().homedir
-let filePath = homeDir+"/SuiNotes/"
-let fileType = ".md"
-let fileName = "note"
-let file = filePath + fileName + fileType
+let noteFilePath = homeDir + "/SuiNotes/Notes/"
+let cacheFilePath = homeDir + "/SuiNotes/Cache/"
+
+let mdFileType = ".md"
+
+let cacheFileName = "cache"
+let readingFileName = ""
+let readingFileNameKey = "readingFileName"
+
+let cacheFile = cacheFilePath + cacheFileName + mdFileType
+
+let readingCache = {}
+
 let input = null
+let output = null
+let noteList = null
+
+let noteListShow = false;
 
 window.onload = function () {
-    setTimeout(loadings, 1000);
+    setTimeout(loadings, 500);
 }
 
 function loadings() {
     initMarked()
-    createFile()
-    input = document.getElementById('text');
-    input.addEventListener("input", onInput)
-    loadMd()
-    setScrollSync()
+    initDirectory()
+    initEditor()
+    initMenu()
 }
 
 function initMarked() {
@@ -49,22 +60,120 @@ function initMarked() {
     });
 }
 
-function loadMd() {
-    fs.readFile(file, 'utf8', (error, data) => {
-        if (data !== undefined && data !== null) {
-            input.value = data
-            onInput()
-        }
-    })
+function initDirectory() {
+    if (!fs.existsSync(noteFilePath)) {
+        fs.mkdirSync(noteFilePath)
+    }
+    if (!fs.existsSync(cacheFilePath)) {
+        fs.mkdirSync(cacheFilePath)
+    }
+    if (!fs.existsSync(cacheFile)) {
+        // 只创建文件
+        fs.writeFileSync(cacheFile, "")
+    }
 }
 
-function onInput() {
-    document.getElementsByClassName('html')[0].innerHTML = marked.parse(input.value)
-    saveNote(input);
+function markedText() {
+    output.innerHTML = marked.parse(input.value)
 }
+
+function initEditor() {
+    input = document.getElementById('text');
+    output = document.getElementsByClassName('html')[0]
+    input.addEventListener("input", () => {
+        markedText();
+        saveNote(input);
+    })
+    loadMd()
+    setScrollSync()
+}
+
+function initMenu() {
+    initNoteList();
+}
+
+function initNoteList() {
+    noteList = document.getElementById("note-list");
+    noteList.style.display = "none"
+}
+
+function loadMd() {
+    // 先读缓存
+    if (readingFileName === "") {
+        const data = fs.readFileSync(cacheFile, 'utf8');
+        if (data === "") {
+            newReadingCache(getFormatDate())
+            saveNote()  // 创建文件的作用
+        } else {
+            readingFileName = JSON.parse(data)[readingFileNameKey]
+        }
+    }
+    input.value = fs.readFileSync(noteFilePath + readingFileName + mdFileType, 'utf8')
+    markedText()
+}
+
 
 function saveNote() {
-    fs.writeFileSync(file, input.value);
+    fs.writeFileSync(noteFilePath + readingFileName + mdFileType, input.value);
+}
+
+function refreshPage(noteName) {
+    saveNote()
+    clearEditor();
+    newReadingCache(noteName)
+}
+
+function clearNoteList() {
+    while (noteList.childNodes.length > 0) {
+        noteList.removeChild(noteList.lastChild)
+    }
+}
+
+function getListNote() {
+    clearNoteList()
+    const noteArray = fs.readdirSync(noteFilePath, 'utf8');
+    for (const note of noteArray) {
+        const buttonElement = document.createElement("div");
+        const noteName = note.split(".")[0];
+        buttonElement.innerHTML = noteName
+        buttonElement.className = "note-list-btn"
+        buttonElement.addEventListener("click", () => {
+            if (noteName === readingFileName) {
+                return
+            }
+            refreshPage(noteName);
+            loadMd()
+            clickListNote()
+        })
+        noteList.append(buttonElement)
+    }
+}
+
+function newReadingCache(noteName) {
+    readingFileName = noteName;
+    readingCache[readingFileNameKey] = readingFileName
+    writeCacheFile(JSON.stringify(readingCache))
+}
+
+function clearEditor() {
+    input.value = ""
+    output.innerHTML = ""
+}
+
+function addNote() {
+    refreshPage(getFormatDate())
+    saveNote()
+}
+
+function clickListNote() {
+    if (noteListShow === false) {
+        getListNote()
+        noteList.style.display = "block"
+        noteListShow = true;
+    } else {
+        noteList.style.display = "none"
+        noteListShow = false;
+    }
 }
 
 function setScrollSync() {
@@ -96,16 +205,13 @@ function setScrollSync() {
     })
 }
 
-/**
- * todo 新建笔记
- */
-function createFile() {
-    // const date = new Date();
-    // date.toLocaleDateString('en-GB').split('/').reverse().join('');
-    fs.mkdir(filePath, (err) => {
-        err ? console.log("本地目录初始化失败："+err) : console.log('本地目录初始化成功')
-    })
+function writeCacheFile(cache) {
+    // cache = '{"readingFileName":"' + readingFileName + '"}';
+    fs.writeFileSync(cacheFile, cache)
 }
+
+
+
 
 
 

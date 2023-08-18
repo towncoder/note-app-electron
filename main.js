@@ -13,7 +13,7 @@ const createWindow = () => {
         }
     })
     // 开启浏览器调试模式
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
     win.loadFile('index.html').then(() => {})
     win.hide()
 }

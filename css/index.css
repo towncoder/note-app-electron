@@ -107,4 +107,30 @@ a {
     overflow-wrap: break-word;
 }
 
+li:has(input[type="checkbox"]) {
+    list-style:none;
+}
+
+ul:has(input[type="checkbox"]) {
+    padding-left: 0;
+}
+
+.note-list{
+    position: absolute;
+    margin-left: 108px;
+    margin-top: -553px;
+    width: 200px;
+    border: 1px solid grey;
+    background-color: grey;
+}
+.note-list-btn{
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid black;
+}
+.note-list-btn:hover{
+    margin: 0 !important;
+    border: 1px solid grey;
+    background-color: lightgray;
+}
 
