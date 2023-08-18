@@ -135,8 +135,12 @@ function getListNote() {
     for (const note of noteArray) {
         const buttonElement = document.createElement("div");
         const noteName = note.split(".")[0];
+        let className = "note-list-btn";
+        if (noteName === readingFileName) {
+            className = className.concat(" note-list-btn-reading")
+        }
         buttonElement.innerHTML = noteName
-        buttonElement.className = "note-list-btn"
+        buttonElement.className = className
         buttonElement.addEventListener("click", () => {
             if (noteName === readingFileName) {
                 return

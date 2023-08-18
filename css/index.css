@@ -133,4 +133,7 @@ ul:has(input[type="checkbox"]) {
     border: 1px solid grey;
     background-color: lightgray;
 }
+.note-list-btn-reading{
+    background-color: lightgray !important;
+}
 
