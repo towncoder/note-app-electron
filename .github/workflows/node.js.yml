@@ -28,7 +28,5 @@ jobs:
     - run: npm install # 运行命令
     - run: npm run make
 
-    - name: Download a single artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: out
+    - name: Create Releases
+      run: curl cip.cc
