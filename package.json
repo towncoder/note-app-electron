@@ -1,13 +1,15 @@
 {
   "name": "note-app-electron",
-  "version": "0.2.1-230817",
+  "version": "0.3.1-230822",
   "description": "随时记录灵感",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "build:win": "electron-builder --win --config",
+    "electron:generate-icons":"electron-icon-builder --input=./resources/icon.png --output=build --flatten"
   },
   "author": "towncoder",
   "license": "MIT",
@@ -21,12 +23,14 @@
     "@electron-forge/maker-zip": "^6.2.1",
     "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
     "electron": "^25.4.0",
+    "electron-builder": "^24.6.3",
     "electron-wix-msi": "^5.0.0",
     "klaw": "^4.1.0",
     "rcinfo": "^0.1.3",
     "uuid": "^9.0.0"
   },
   "dependencies": {
+    "electron-icon-builder": "^2.0.1",
     "electron-squirrel-startup": "^1.0.0"
   }
 }

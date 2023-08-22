@@ -13,8 +13,9 @@ const os = require('os');
 
 // /Users/libiao
 let homeDir = os.userInfo().homedir
-let noteFilePath = homeDir + "/SuiNotes/Notes/"
-let cacheFilePath = homeDir + "/SuiNotes/Cache/"
+let rootFilePath = homeDir + "/SuiNotes"
+let noteFilePath = rootFilePath + "/Notes/"
+let cacheFilePath = rootFilePath + "/Cache/"
 
 let mdFileType = ".md"
 
@@ -44,11 +45,12 @@ function loadings() {
     initMenu()
 }
 
-function fixWinPath(){
-    if (process.platform==="win32"){
-        noteFilePath = noteFilePath.replaceAll("/","\\");
-        cacheFilePath = cacheFilePath.replaceAll("/","\\");
-        console.log('noteFilePath_cacheFilePath',noteFilePath,cacheFilePath)
+function fixWinPath() {
+    if (process.platform === "win32") {
+        rootFilePath = rootFilePath.replaceAll("/", "\\");
+        noteFilePath = noteFilePath.replaceAll("/", "\\");
+        cacheFilePath = cacheFilePath.replaceAll("/", "\\");
+        console.log('noteFilePath_cacheFilePath', noteFilePath, cacheFilePath)
     }
 }
 
@@ -70,6 +72,9 @@ function initMarked() {
 }
 
 function initDirectory() {
+    if (!fs.existsSync(rootFilePath)) {
+        fs.mkdirSync(rootFilePath)
+    }
     if (!fs.existsSync(noteFilePath)) {
         fs.mkdirSync(noteFilePath)
     }
