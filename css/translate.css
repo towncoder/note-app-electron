@@ -4,7 +4,7 @@
 }
 
 .translate-input {
-    height: 100px;
+    height: 150px;
     width:40%;
     outline: none;
     border: none;
@@ -16,8 +16,9 @@
     background-color: #FFFFFF;
 }
 .translate-output{
+    overflow-y: auto;
     background-color: #EAEDF6;
-    height: 100px;
+    height: 150px;
     width:40%;
     padding: 14px 10px !important;
     font-size: 14px;
@@ -27,7 +28,7 @@
 .translate-output-copy{
     position: absolute;
     left: 51%;
-    top: 190px;
+    top: 240px;
     border: none;
     background-color: #DCE0EE;
     border-radius: 6px;
