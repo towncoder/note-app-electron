@@ -17,8 +17,9 @@ const createWindow = () => {
         win = null
     })
 }
-app.dock.hide()
-
+if (process.platform==="darwin"){
+    app.dock.hide()
+}
 function loadHtml(fileName) {
     // 获取当前页面的URL
     const currentURL = win.webContents.getURL();

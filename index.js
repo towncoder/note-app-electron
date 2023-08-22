@@ -37,10 +37,19 @@ window.onload = function () {
 }
 
 function loadings() {
+    fixWinPath()
     initMarked()
     initDirectory()
     initEditor()
     initMenu()
+}
+
+function fixWinPath(){
+    if (process.platform==="win32"){
+        noteFilePath = noteFilePath.replaceAll("/","\\");
+        cacheFilePath = cacheFilePath.replaceAll("/","\\");
+        console.log('noteFilePath_cacheFilePath',noteFilePath,cacheFilePath)
+    }
 }
 
 function initMarked() {
