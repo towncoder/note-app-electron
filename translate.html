@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content: https://ssl.gstatic.com;
+    media-src * blob: 'self' http://* 'unsafe-inline' 'unsafe-eval';
+    style-src * 'self' 'unsafe-inline';
+    img-src * 'self' data: content:;
+    connect-src * blob:;">
+    <title>法思特翻译</title>
+    <script src="js/translate.js"></script>
+    <script src="js/common.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></script>
+    <link rel="stylesheet" href="css/translate.css">
+</head>
+<body>
+<p style="margin-left: 7%">自动检测输入语言，目前只支持中英文互译</p>
+<div class="translate-block">
+    <textarea class="translate-input" id="translate-input" autofocus placeholder="请输入需要翻译的文字内容"></textarea>
+    <div class="translate-output" id="translate-output"></div>
+    <button class="translate-output-copy" id="translate-output-copy" onclick="copy()">复制</button>
+</div>
+</body>
+</html>

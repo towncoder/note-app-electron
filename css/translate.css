@@ -1,0 +1,41 @@
+.translate-block{
+    display: flex;
+    justify-content: center;
+}
+
+.translate-input {
+    height: 100px;
+    width:40%;
+    outline: none;
+    border: none;
+    resize: none;
+    padding: 14px 10px !important;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    background-color: #FFFFFF;
+}
+.translate-output{
+    background-color: #EAEDF6;
+    height: 100px;
+    width:40%;
+    padding: 14px 10px !important;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+}
+.translate-output-copy{
+    position: absolute;
+    left: 51%;
+    top: 190px;
+    border: none;
+    background-color: #DCE0EE;
+    border-radius: 6px;
+}
+.translate-output-copy:hover{
+    background-color: #D5E2FA;
+}
+body{
+    background-color:#F2F4FA;
+    padding: 30px;
+}
