@@ -3,6 +3,7 @@ const url = require('url');
 const querystring = require('querystring');
 const {execSync} = require('child_process');
 const os = require('os');
+const {ipcRenderer} = require('electron');
 
 const appKey = '5f8543701ad13dfd';
 const key = 'aADtvZReiWAT83f7f5f3QmPF04IasS6H';//注意：暴露appSecret，有被盗用造成损失的风险
@@ -19,6 +20,14 @@ window.onload = () => {
         debouncedYouDaoTranslate(value, isChinese(value), isEnglish(value))
     })
     translateOutputCopyBtn = document.getElementById("translate-output-copy");
+    initVersion()
+}
+
+function initVersion() {
+    ipcRenderer.on('versionValue', (event, variable) => {
+        document.getElementById("translate-version").innerHTML = variable
+    });
+    ipcRenderer.send('getVersion');
 }
 
 function debounce(func, delay) {
@@ -45,7 +54,7 @@ function youDaoTranslate(query, from, to) {
         translateOutput.innerHTML = ""
         return
     }
-    console.log('query,from,to', query, from, to)
+    // console.log('query,from,to', query, from, to)
     const salt = (new Date).getTime();
     const curtime = Math.round(new Date().getTime() / 1000);
     const str1 = appKey + truncate(query) + salt + curtime + key;
@@ -75,7 +84,7 @@ function youDaoTranslate(query, from, to) {
     const req = https.request(options, (res) => {
         res.on('data', (data) => {
             const jsonData = JSON.parse(data.toString())
-            console.log('data', jsonData)
+            // console.log('data', jsonData)
             if (jsonData.errorCode === '0') {
                 const ans = jsonData.translation;
                 translateOutput.innerHTML = ans.join("")
@@ -99,7 +108,7 @@ function truncate(q) {
 }
 
 function copy() {
-    if (translateOutput.innerHTML===""){
+    if (translateOutput.innerHTML === "") {
         return
     }
     var originalText = "复制";

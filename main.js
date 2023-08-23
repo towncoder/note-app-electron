@@ -1,7 +1,28 @@
-const {app, BrowserWindow, globalShortcut} = require('electron')
+const {app, BrowserWindow, globalShortcut,ipcMain} = require('electron')
+
+const fs = require('fs');
+const path = require('path');
+const appPath = app.getAppPath();
+const packageJsonPath = path.join(appPath, 'package.json');
 
 let win = null
 let winStatus = false
+let version = ""
+
+ipcMain.on('getVersion', (event) => {
+    try {
+        const packageJsonContent = fs.readFileSync(packageJsonPath, 'utf-8');
+        const packageJson = JSON.parse(packageJsonContent);
+
+        // 获取配置值示例
+        version = packageJson.version;
+    } catch (error) {
+        console.error('读取package.json文件出错', error);
+    }
+    event.reply('versionValue', version);
+});
+
+
 const createWindow = () => {
     win = new BrowserWindow({
         width: 800,
@@ -26,7 +47,7 @@ function loadHtml(fileName) {
     if (html !== fileName) {
         win.loadFile(fileName).then(() => {
             // 开启浏览器调试模式
-            // win.webContents.openDevTools()
+            win.webContents.openDevTools()
         })
     }
     if (winStatus === false) {
