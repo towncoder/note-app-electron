@@ -7,6 +7,7 @@ const createWindow = () => {
         width: 800,
         height: 650,
         // frame: false,
+        autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
@@ -17,9 +18,10 @@ const createWindow = () => {
         win = null
     })
 }
-if (process.platform==="darwin"){
+if (process.platform === "darwin") {
     app.dock.hide()
 }
+
 function loadHtml(fileName) {
     // 获取当前页面的URL
     const currentURL = win.webContents.getURL();
