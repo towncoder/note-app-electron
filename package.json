@@ -1,6 +1,6 @@
 {
-  "name": "note-app-electron",
-  "version": "0.2.1-230817",
+  "name": "note-app",
+  "version": "0.3.2-230822",
   "description": "随时记录灵感",
   "main": "main.js",
   "scripts": {

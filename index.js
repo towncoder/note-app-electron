@@ -13,8 +13,9 @@ const os = require('os');
 
 // /Users/libiao
 let homeDir = os.userInfo().homedir
-let noteFilePath = homeDir + "/SuiNotes/Notes/"
-let cacheFilePath = homeDir + "/SuiNotes/Cache/"
+let rootPath = homeDir + "/SuiNotes"
+let noteFilePath = rootPath + "/Notes/"
+let cacheFilePath = rootPath + "/Cache/"
 
 let mdFileType = ".md"
 
@@ -70,6 +71,9 @@ function initMarked() {
 }
 
 function initDirectory() {
+    if (!fs.existsSync(rootPath)) {
+        fs.mkdirSync(rootPath)
+    }
     if (!fs.existsSync(noteFilePath)) {
         fs.mkdirSync(noteFilePath)
     }
