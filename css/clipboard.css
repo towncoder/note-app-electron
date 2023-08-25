@@ -1,0 +1,18 @@
+.clipboard-item{
+    border-bottom: 1px solid lightgray;
+    padding: 5px !important;
+    margin: 0 5px !important;
+    line-height: 1.5em;
+    height: 40px;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.clipboard-item:hover{
+    background-color: #D5E2FA;
+}

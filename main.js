@@ -1,4 +1,4 @@
-const {app, BrowserWindow, globalShortcut,ipcMain} = require('electron')
+const {app, BrowserWindow, globalShortcut, ipcMain,clipboard} = require('electron')
 
 const fs = require('fs');
 const path = require('path');
@@ -8,6 +8,7 @@ const packageJsonPath = path.join(appPath, 'package.json');
 let win = null
 let winStatus = false
 let version = ""
+let clipboardText = []
 
 ipcMain.on('getVersion', (event) => {
     try {
@@ -20,6 +21,10 @@ ipcMain.on('getVersion', (event) => {
         console.error('读取package.json文件出错', error);
     }
     event.reply('versionValue', version);
+});
+
+ipcMain.on('getClipboard', (event) => {
+    event.reply('clipboardValue', clipboardText);
 });
 
 
@@ -38,10 +43,24 @@ const createWindow = () => {
         win = null
     })
 }
-if (process.platform==="darwin"){
-    app.dock.hide()
+
+function startClipboardListener() {
+
+    console.log('startClipboardListener')
+    let previousClipboard = clipboard.readText();
+
+    setInterval(() => {
+        const currentClipboard = clipboard.readText();
+
+        if (currentClipboard !== previousClipboard) {
+            console.log('剪贴板内容变化:', currentClipboard.toString());
+            clipboardText.push(currentClipboard)
+            previousClipboard = currentClipboard;
+        }
+    }, 500);
 }
-function loadHtml(fileName) {
+
+function loadHtml(fileName,height=650,width=800) {
     // 获取当前页面的URL
     const currentURL = win.webContents.getURL();
     const html = currentURL.split("/").pop();
@@ -49,6 +68,7 @@ function loadHtml(fileName) {
         win.loadFile(fileName).then(() => {
             // 开启浏览器调试模式
             win.webContents.openDevTools()
+            win.setSize(width,height)
         })
     }
     if (winStatus === false) {
@@ -60,7 +80,11 @@ function loadHtml(fileName) {
     }
 }
 
+if (process.platform === "darwin") {
+    app.dock.hide()
+}
 app.whenReady().then(() => {
+    startClipboardListener()
     createWindow()
     globalShortcut.register('Alt+N', () => {
         loadHtml("index.html");
@@ -68,7 +92,9 @@ app.whenReady().then(() => {
     globalShortcut.register('Alt+T', () => {
         loadHtml("translate.html");
     })
-
+    globalShortcut.register('Alt+C', () => {
+        loadHtml("html/clipboard.html",600,300);
+    })
     app.on('will-quit', () => {
         globalShortcut.unregisterAll()
     })
