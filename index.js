@@ -1,6 +1,7 @@
 const fs = require('fs');
 const {highlightAuto} = require("./highlight.pack");
-const os = require('os');
+const os = require("os")
+const { ipcRenderer } = require('electron');
 
 // nodejs 定时任务
 // const schedule = require("node-schedule");
@@ -18,11 +19,9 @@ let noteFilePath = rootPath + "/Notes/"
 let cacheFilePath = rootPath + "/Cache/"
 
 let mdFileType = ".md"
-
 let cacheFileName = "cache"
 let readingFileName = ""
 let readingFileNameKey = "readingFileName"
-
 let cacheFile = cacheFilePath + cacheFileName + mdFileType
 
 let readingCache = {}
@@ -39,6 +38,7 @@ window.onload = function () {
 
 function loadings() {
     fixWinPath()
+    initVersion()
     initMarked()
     initDirectory()
     initEditor()
@@ -51,6 +51,13 @@ function fixWinPath(){
         cacheFilePath = cacheFilePath.replaceAll("/","\\");
         console.log('noteFilePath_cacheFilePath',noteFilePath,cacheFilePath)
     }
+}
+
+function initVersion(){
+    ipcRenderer.on('versionValue', (event, variable) => {
+        document.getElementById("version").innerHTML = variable
+    });
+    ipcRenderer.send('getVersion');
 }
 
 function initMarked() {
