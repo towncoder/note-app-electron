@@ -18,6 +18,14 @@
 
 ![](https://yitiaoit.oss-cn-beijing.aliyuncs.com/img/20230811154211.png)
 
+### 打包方式
+
+```shell
+npm run make
+# 需开启全局代理，连接 github
+# 安装包在 out/make 文件夹下
+```
+
 ### Windows
 
 ```shell

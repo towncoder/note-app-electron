@@ -27,7 +27,7 @@ const createWindow = () => {
     win = new BrowserWindow({
         width: 800,
         height: 650,
-        // frame: false,
+        frame: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
@@ -48,7 +48,7 @@ function loadHtml(fileName) {
     if (html !== fileName) {
         win.loadFile(fileName).then(() => {
             // 开启浏览器调试模式
-            win.webContents.openDevTools()
+            // win.webContents.openDevTools()
         })
     }
     if (winStatus === false) {
